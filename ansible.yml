@@ -1,0 +1,15 @@
+name: "Simple Example Playbook"
+tasks:
+  - name: "Echo Hello World"
+    dnf:
+      name: "stuff"
+      state: latest
+    
+  - name: "List Directory"
+    command: "ls -l"
+    notify:
+      - test-handle
+
+handlers:
+  - name: "test-handle"
+    command: "handle something"

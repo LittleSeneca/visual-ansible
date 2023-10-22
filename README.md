@@ -49,3 +49,8 @@ You'll need to start these services in the following order:
     ```
 
 And there you go! Your project should now be up and running.
+
+To access your project, the default address will be: 
+
+http://localhost:8081/ 
+

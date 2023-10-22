@@ -1,0 +1,23 @@
+.popup-container {
+    background-color: #282A36; /* Dracula Background */
+    color: #F1FAEE; /* Text color */
+    border: 2px solid #50FA7B; /* Green border */
+    border-radius: 10px;
+    width: 75%; /* Set width */
+    margin: auto;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    color: #F1FAEE; /* Text color */
+}
+
+.content {
+    padding: 20px;
+    max-height: 600px;
+    overflow: auto;
+}

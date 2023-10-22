@@ -1,0 +1,14 @@
+.app-background {
+    background-color: #282a36;
+}
+
+.container-border {
+    border: 2px solid #FF79C6;
+    padding: 15px;
+    margin: 20px;
+    background-color: #6272A4;
+}
+
+.playbook-title {
+    color: #50FA7B;
+}

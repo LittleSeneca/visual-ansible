@@ -1,22 +1,31 @@
 package main
 
-import "gopkg.in/yaml.v3"
+import (
+	"errors"
+
+	"gopkg.in/yaml.v3"
+)
 
 type Task struct {
-    Name    string `yaml:"name"`
-    Command string `yaml:"command"`
+	Name    string
+	Modules map[string]interface{}
 }
 
 type Playbook struct {
-    Name  string `yaml:"name"`
-    Tasks []Task `yaml:"tasks"`
+	Tasks []Task
 }
 
-func ParsePlaybook(yamlStr string) (*Playbook, error) {
-    var playbook Playbook
-    err := yaml.Unmarshal([]byte(yamlStr), &playbook)
-    if err != nil {
-        return nil, err
-    }
-    return &playbook, nil
+func ParsePlaybook(yamlStr string) (Playbook, error) {
+	var playbook Playbook
+
+	err := yaml.Unmarshal([]byte(yamlStr), &playbook)
+	if err != nil {
+		return Playbook{}, err
+	}
+
+	if len(playbook.Tasks) == 0 {
+		return Playbook{}, errors.New("no tasks found in the playbook")
+	}
+
+	return playbook, nil
 }

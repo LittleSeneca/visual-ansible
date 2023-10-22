@@ -1,47 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './Card.css';
+import './RenderProps.css';
 
-const RenderProps = ({ obj, isNested = false, fetchAnsibleDoc, setShowPopup, setModuleInfo }) => (
+const isAnsibleModule = (obj, key) => {
+  return obj[key] && typeof obj[key] === 'object' && !Array.isArray(obj[key]) && !obj[key].tasks;
+};
+
+const RenderProps = ({ obj, isNested = false, fetchAnsibleDoc, setShowPopup, setModuleInfo, isTaskChild = false, level = 0 }) => (
   <div>
     {Object.keys(obj).map((key, index) => (
       <div 
-        key={index}
-        style={{
-          color: '#F8F8F2',
-          paddingBottom: '10px',
-        }}
+        key={index} 
+        className={
+          isTaskChild ? "custom-task-class key-text" : "key-text"
+        }
       >
         <strong 
           onClick={async () => {
-            if (obj[key] && typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
+            if (isAnsibleModule(obj, key)) {
               const info = await fetchAnsibleDoc(key);
               setModuleInfo(info);
               setShowPopup(true);
             }
           }}
-          style={{
-            color: (obj[key] && typeof obj[key] === 'object' && !Array.isArray(obj[key])) ? '#BD93F9' : '#F8F8F2',
-            cursor: (obj[key] && typeof obj[key] === 'object' && !Array.isArray(obj[key])) ? 'pointer' : 'default'
-          }}
+          className={
+            isAnsibleModule(obj, key) ? 'ansible-module' : 'key-default'
+          }
         >
-          {/* Only show key text if it's not a number */}
           {isNaN(key) ? key.charAt(0).toUpperCase() + key.slice(1) + ':' : null}
         </strong>
         
         {typeof obj[key] === 'object' ? (
-          <div
-            style={{
-              marginLeft: '20px',
-              border: isNested ? '2px solid #6272A4' : 'none',
-              padding: isNested ? '10px' : '0px',
-              backgroundColor: '#44475A',
-              boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.2)',
-            }}
-          >
-            <RenderProps obj={obj[key]} isNested={true} fetchAnsibleDoc={fetchAnsibleDoc} setShowPopup={setShowPopup} setModuleInfo={setModuleInfo} />
+          <div className={level > 0 ? 'card' : ''}>
+            <RenderProps 
+              obj={obj[key]} 
+              isNested={true} 
+              fetchAnsibleDoc={fetchAnsibleDoc} 
+              setShowPopup={setShowPopup} 
+              setModuleInfo={setModuleInfo} 
+              isTaskChild={key === "tasks"}
+              level={level + 1}
+            />
           </div>
         ) : (
-          <span style={{ color: '#50FA7B' }}>{obj[key]}</span>
+          <span className="value-text">{obj[key]}</span>
         )}
       </div>
     ))}
@@ -57,6 +60,8 @@ RenderProps.propTypes = {
   fetchAnsibleDoc: PropTypes.func.isRequired,
   setShowPopup: PropTypes.func.isRequired,
   setModuleInfo: PropTypes.func.isRequired,
+  isTaskChild: PropTypes.bool,
+  level: PropTypes.number,
 };
 
 export default RenderProps;

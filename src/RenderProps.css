@@ -1,0 +1,47 @@
+.key-text {
+    color: #F8F8F2;
+    padding-bottom: 10px;
+}
+
+.key-clickable {
+    color: #BD93F9;
+    cursor: pointer;
+}
+
+.key-default {
+    color: #F8F8F2;
+    cursor: default;
+}
+
+.object-container {
+    margin-left: 20px;
+    border: 2px solid #6272A4;
+    padding: 10px;
+    background-color: #44475A;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.simple-container {
+    margin-left: 20px;
+    padding: 0;
+}
+
+.value-text {
+    color: #50FA7B;
+}
+
+.dragBar {
+    cursor: grab;
+    height: 5px;
+    background-color: #ccc;
+    border-radius: 5px;
+}
+.ansible-module {
+    background-color: hwb(232 32% 35%);
+    cursor: pointer;
+}
+/* Put this in your CSS file */
+.custom-task-class {
+  background-color: #f1f1f1;
+  /* Add more styles as needed */
+}

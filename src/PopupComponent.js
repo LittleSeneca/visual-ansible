@@ -1,29 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './PopupComponent.css';
+import './Card.css';
 
 const PopupComponent = ({ moduleInfo }) => (
-  <div style={{
-    backgroundColor: '#282A36', // Dracula Background
-    color: '#F1FAEE', // Text color
-    border: '2px solid #50FA7B', // Green border
-    borderRadius: '10px',
-    width: '75%', // Set width
-    margin: 'auto',
-    position: 'relative',
-  }}>
-    <span 
-      style={{
-        position: 'absolute',
-        top: '10px',
-        right: '15px',
-        cursor: 'pointer',
-        color: '#F1FAEE', // Text color
-      }}
-      // onClick is no longer needed here; it's managed by App.js
-    >
+  <div className="popup-container">
+    <span className="close-button">
       X
     </span>
-    <div style={{ padding: '20px', maxHeight: '600px', overflow: 'auto' }}>
+    <div className="content">
       <pre>{moduleInfo}</pre>
     </div>
   </div>
